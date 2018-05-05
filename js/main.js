@@ -22,7 +22,7 @@
   }
 
   // Get the data back in a useable state.
-  var blogInfo = new Promise(function(resolve, reject) {
+  let blogInfo = new Promise(function(resolve, reject) {
     resolve(restRequest(`/blog`));
   });
 
@@ -36,24 +36,53 @@
     description[0].innerHTML += blog.description;
   });
 
-  // 
-  var allPosts = new Promise(function(resolve, reject) {
+  // Get all the posts and put them in an object.
+  let allPosts = new Promise(function(resolve, reject) {
     resolve(restRequest(`/posts`));
   });
 
-  allPosts.then(function(posts) {
-    // console.log( posts )
-  });
 
   // Add vanilla event listner to the search form.
   window.onload = function () {
     document.querySelector("#search")
     .addEventListener("submit", function(e) {
-        e.preventDefault();
+      e.preventDefault();
 
+      // Get the submitted search string.
+      const formData = new FormData(e.target);
+      const searchTerm = formData.get('search-box');
+      let searchResultsBody = [];
+      let resultCount = document.querySelectorAll('.search-results-count');
+      let resultPreview = document.querySelectorAll('.search-results');
 
+      // Search the post body for matching strings.
+      allPosts.then(function(posts) {
+        console.log( posts[0] )
 
+        for(var i = 0; i < posts.length; i++){
+         var str = posts[i].body;
+          if(str.indexOf(searchTerm) >= 0){
+           searchResultsBody.push(i)
+          }
+        }
+        // Update results count.
+        let searchCount = searchResultsBody.length;
+        resultCount[0].prepend(searchCount + ' Results');
 
+        // Get all the previews and post them as links.
+        let postPreview = '';
+        for(var j = 0; j < searchCount; j++){
+          let key = searchResultsBody[j];
+
+          postPreview += '<li>'
+          postPreview +=  '<h4><a href="https://www.voorhoede.nl/en/blog/' + posts[key].slug + '/">' + posts[key].title + '</a></h4>'
+          postPreview +=  posts[key].teaser
+          postPreview += '</li>'
+        }
+
+        resultPreview[0].innerHTML = postPreview;
+
+      });
 
 
     }, false);
