@@ -1,0 +1,8 @@
+.a11y {
+  border: none;
+  display: block;
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 0;
+}
