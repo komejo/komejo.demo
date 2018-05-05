@@ -28,7 +28,7 @@
 
   // Add the blog info to the page.
   blogInfo.then(function(blog) {
-    var title = document.querySelectorAll('.title'),
+    let title = document.querySelectorAll('.title'),
         subtitle = document.querySelectorAll('.subtitle'),
         description = document.querySelectorAll('.description');
     title[0].prepend(blog.title + ' ');
@@ -59,8 +59,8 @@
       allPosts.then(function(posts) {
         console.log( posts[0] )
 
-        for(var i = 0; i < posts.length; i++){
-         var str = posts[i].body;
+        for(let i = 0; i < posts.length; i++){
+         let str = posts[i].body;
           if(str.indexOf(searchTerm) >= 0){
            searchResultsBody.push(i)
           }
@@ -71,7 +71,7 @@
 
         // Get all the previews and post them as links.
         let postPreview = '';
-        for(var j = 0; j < searchCount; j++){
+        for(let j = 0; j < searchCount; j++){
           let key = searchResultsBody[j];
 
           postPreview += '<li>'
