@@ -8,7 +8,7 @@
  */
 ( function() {
 
-  // Get all the blog posts.
+  // Initialize the API.
   const apiUrl = `https://voorhoede-colibri-api-zhmoaomjvy.now.sh/api/v1`
 
   function restRequest(query) {
@@ -36,11 +36,11 @@
     description[0].innerHTML += blog.description;
   });
 
-  // Get all the posts and put them in an object.
+
+  // Now get all the posts and put them in an object.
   let allPosts = new Promise(function(resolve, reject) {
     resolve(restRequest(`/posts`));
   });
-
 
   // Add vanilla event listner to the search form.
   window.onload = function () {
@@ -49,41 +49,66 @@
       e.preventDefault();
 
       // Get the submitted search string.
-      const formData = new FormData(e.target);
-      const searchTerm = formData.get('search-box');
-      let searchResultsBody = [];
-      let resultCount = document.querySelectorAll('.search-results-count');
-      let resultPreview = document.querySelectorAll('.search-results');
+      let formData = new FormData(e.target),
+          searchByWeight = formData.get('sort-by-weight'),
+          searchTerm = formData.get('search-box').toLowerCase(),
+          searchResults = [],
+          resultCount = document.querySelectorAll('.search-results-count'),
+          resultPreview = document.querySelectorAll('.search-results');
 
-      // Search the post body for matching strings.
+      // Search the posts for matching strings.
       allPosts.then(function(posts) {
-        console.log( posts[0] )
+        // Temp - so we can see what's available.
+        // console.log( posts[0] )
+        let resultText = "";
 
-        for(let i = 0; i < posts.length; i++){
-         let str = posts[i].body;
-          if(str.indexOf(searchTerm) >= 0){
-           searchResultsBody.push(i)
+        for (let i = 0; i < posts.length; i++){
+          let str = posts[i].body.toLowerCase();
+
+          // Use toLowerCase for term and posts to find all results.
+          if (str.indexOf(searchTerm) >= 0){
+            let result = {};
+            result.post = i;
+            result.weight = (str.split(searchTerm).length - 1);
+            searchResults.push(result);
           }
         }
+
+        if ( searchByWeight ) {
+          searchResults.sort(function(a, b){
+            return b.weight - a.weight;
+          });
+          resultText = 'sorted by relevance.';
+        } else {
+          resultText = 'sorted by most recent.';
+        };
+
         // Update results count.
-        let searchCount = searchResultsBody.length;
-        resultCount[0].prepend(searchCount + ' Results');
+        let searchCount = searchResults.length,
+            resultPlural = ' results, ';
+
+        // 1 'results' makes me crazy.
+        // Using logic operator for fun/compactness.
+        searchCount == 0 && (resultText = 'perhaps try again?');
+        searchCount == 1 && (resultPlural = ' result, ');
+
+        resultCount[0].innerHTML = searchCount + resultPlural + resultText;
 
         // Get all the previews and post them as links.
         let postPreview = '';
         for(let j = 0; j < searchCount; j++){
-          let key = searchResultsBody[j];
+          let key = searchResults[j].post;
 
-          postPreview += '<li>'
-          postPreview +=  '<h4><a href="https://www.voorhoede.nl/en/blog/' + posts[key].slug + '/">' + posts[key].title + '</a></h4>'
-          postPreview +=  posts[key].teaser
-          postPreview += '</li>'
+          postPreview += '<li>';
+          postPreview +=  '<h4><a href="https://www.voorhoede.nl/en/blog/' + posts[key].slug + '/">' + posts[key].title + '</a></h4>';
+          // Check that there's a preview!
+          posts[key].teaser != null && (postPreview +=  posts[key].teaser);
+          postPreview += '</li>';
         }
 
         resultPreview[0].innerHTML = postPreview;
 
       });
-
 
     }, false);
   }
