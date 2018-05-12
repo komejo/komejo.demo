@@ -31,24 +31,22 @@
     <header>
       <nav class="mast">
         <h1 class="site-logo title">Search</h1>
-      </nav><!-- /end .mast -->
+      </nav>
     </header>
 
     <main>
       <div class="page-content" id="content">
 
-        <article>
-          <h3 class="subtitle"></h3>
-          <p class="description"></p>
-        </article>
-
-        <form id="search">
-          <input type="text" name="search-box" class="search-box" id="search" />
+        <form id="search-form">
+          <input type="text" name="search-box" class="search-box" id="search-input" />
           <input type="submit" class="search-button" value="Search" />
-          <input type="checkbox" name="sort-by-weight" value="true"> Sort by relevence?
+          <input type="checkbox" name="sort-by-weight" value="true" /> Sort by relevence?
         </form>
 
-        <!-- /search -->
+        <article>
+          <h3 class="subtitle">One moment while our API service wakes up!</h3>
+        </article>
+
         <div class="search-results-count"></div>
         <ul class="search-results"></ul>
 
