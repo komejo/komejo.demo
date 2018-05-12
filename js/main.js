@@ -6,19 +6,19 @@
  *
  * See http://benalman.com/news/2010/11/immediately-invoked-function-expression/
  */
-( function() {
+(function() {
 
   // Initialize the API.
   const apiUrl = `https://voorhoede-colibri-api-zhmoaomjvy.now.sh/api/v1`
 
   function restRequest(query) {
     return fetch(`${apiUrl}${query}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    .then(response => response.json())
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => response.json())
   };
 
   // Get the data back in a useable state.
@@ -29,8 +29,8 @@
   // Add the blog info to the page.
   blogInfo.then(function(blog) {
     let title = document.querySelectorAll('.title'),
-        subtitle = document.querySelectorAll('.subtitle'),
-        description = document.querySelectorAll('.description');
+      subtitle = document.querySelectorAll('.subtitle'),
+      description = document.querySelectorAll('.description');
     title[0].prepend(blog.title + ' ');
     subtitle[0].innerHTML = blog.subtitle;
     // description[0].innerHTML = blog.description;
@@ -52,8 +52,8 @@
 
     // Apply toLowerCase to the formData argument.
     let searchResults = [],
-        resultCount = document.querySelectorAll('.search-results-count'),
-        resultPreview = document.querySelectorAll('.search-results');
+      resultCount = document.querySelectorAll('.search-results-count'),
+      resultPreview = document.querySelectorAll('.search-results');
 
     // Search the posts for matching strings.
     allPosts.then(function(posts) {
@@ -61,12 +61,12 @@
       // console.log( posts[0] )
       let resultText = "";
 
-      for (let i = 0; i < posts.length; i++){
+      for (let i = 0; i < posts.length; i++) {
         // Apply toLowerCase to blogPosts.
         let blogPosts = posts[i].body.toLowerCase();
 
         // Create an object that has the post id and the count of terms.
-        if (blogPosts.indexOf(searchTerm) >= 0){
+        if (blogPosts.indexOf(searchTerm) >= 0) {
           let result = {};
           result.post = i;
           result.weight = (blogPosts.split(searchTerm).length - 1);
@@ -75,8 +75,8 @@
       }
 
       // Sort by weight.
-      if ( searchByWeight ) {
-        searchResults.sort(function(a, b){
+      if (searchByWeight) {
+        searchResults.sort(function(a, b) {
           return b.weight - a.weight;
         });
         resultText = 'sorted by relevance.';
@@ -86,7 +86,7 @@
 
       // Update results count.
       let searchCount = searchResults.length,
-          resultPlural = ' results, ';
+        resultPlural = ' results, ';
 
       // 1 'results' makes me crazy.
       // Using logic operator for fun/compactness.
@@ -103,11 +103,11 @@
 
       // Get all the previews and post them as links.
       let postPreview = '';
-      for(let j = 0; j < searchCount; j++){
+      for (let j = 0; j < searchCount; j++) {
         let key = searchResults[j].post;
 
         postPreview += '<li>';
-        postPreview +=  '<h4><a href="https://www.voorhoede.nl/en/blog/' + posts[key].slug + '/">' + posts[key].title + '</a></h4>';
+        postPreview += '<h4><a href="https://www.voorhoede.nl/en/blog/' + posts[key].slug + '/">' + posts[key].title + '</a></h4>';
         // Check that there's a preview!
         posts[key].teaser != null && (postPreview += posts[key].teaser);
         postPreview += '</li>';
@@ -119,23 +119,23 @@
   };
 
   // Add event listner to the search form.
-  window.onload = function () {
+  window.onload = function() {
 
     document.querySelector("#search-form")
-    .addEventListener("submit", function(e) {
-      e.preventDefault();
+      .addEventListener("submit", function(e) {
+        e.preventDefault();
 
-      // Get the submitted search string.
-      let formData = new FormData(e.target),
+        // Get the submitted search string.
+        let formData = new FormData(e.target),
           searchByWeight = formData.get('sort-by-weight');
 
-      searchResults(formData, searchByWeight)
+        searchResults(formData, searchByWeight)
 
-    }, false);
+      }, false);
 
     // Default search.
     searchResults();
   };
 
 
-} )();
+})();
