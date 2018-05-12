@@ -38,18 +38,16 @@
 
   <div class="page-outer">
     <header>
-      <nav class="mast">
-        <h1 class="site-logo title">Search</h1>
-      </nav>
+      <h1 class="site-logo title">De Voorhoede</h1>
     </header>
 
     <main>
       <div class="page-content" id="content">
 
-        <form id="search-form">
-          <input type="text" name="search-box" class="search-box" id="search-input" />
+        <form id="search-form" class="search-form">
+          <input type="text" name="search-box" class="search-box" id="search-input" autofocus />
+          <span class="search-relevance"><input type="checkbox" name="sort-by-weight" id="sort-by-weight" /><label for="sort-by-weight">Sort by relevence?</label></span>
           <input type="submit" class="search-button" value="Search" />
-          <input type="checkbox" name="sort-by-weight" value="true" /> Sort by relevence?
         </form>
 
         <article>

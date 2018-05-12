@@ -28,10 +28,8 @@
 
   // Add the blog info to the page.
   blogInfo.then(function(blog) {
-    let title = document.querySelectorAll('.title'),
-      subtitle = document.querySelectorAll('.subtitle'),
+    let subtitle = document.querySelectorAll('.subtitle'),
       description = document.querySelectorAll('.description');
-    title[0].prepend(blog.title + ' ');
     subtitle[0].innerHTML = blog.subtitle;
     // description[0].innerHTML = blog.description;
   });
@@ -107,7 +105,7 @@
         let key = searchResults[j].post;
 
         postPreview += '<li>';
-        postPreview += '<h4><a href="https://www.voorhoede.nl/en/blog/' + posts[key].slug + '/">' + posts[key].title + '</a></h4>';
+        postPreview += '<h4><a href="https://www.voorhoede.nl/en/blog/' + posts[key].slug + '/">' + posts[key].title + '</a></h4><cite>https://www.voorhoede.nl/en/blog/' + posts[key].slug + '</cite>';
         // Check that there's a preview!
         posts[key].teaser != null && (postPreview += posts[key].teaser);
         postPreview += '</li>';
@@ -129,7 +127,8 @@
         let formData = new FormData(e.target),
           searchByWeight = formData.get('sort-by-weight');
 
-        searchResults(formData, searchByWeight)
+        searchResults(formData, searchByWeight);
+        document.querySelector('main').classList.add('with-results');
 
       }, false);
 
