@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "De Voorhoede Blog Search",
+    "short_name": "search",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
