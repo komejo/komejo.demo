@@ -28,10 +28,8 @@
 
   // Add the blog info to the page.
   blogInfo.then(function(blog) {
-    let subtitle = document.querySelectorAll('.subtitle'),
-      description = document.querySelectorAll('.description');
-    subtitle[0].innerHTML = blog.subtitle;
-    // description[0].innerHTML = blog.description;
+    let subtitle = document.querySelector('.subtitle');
+    subtitle.innerHTML = blog.subtitle;
   });
 
   // Now get all the posts and put them in an object.
@@ -50,20 +48,17 @@
 
     // Apply toLowerCase to the formData argument.
     let searchResults = [],
-      resultCount = document.querySelectorAll('.search-results-count'),
-      resultPreview = document.querySelectorAll('.search-results');
+      resultCount = document.querySelector('.search-results-count'),
+      resultPreview = document.querySelector('.search-results');
 
     // Search the posts for matching strings.
     allPosts.then(function(posts) {
-      // Debug - so we can see what's available.
-      // console.log( posts[0] )
-      let resultText = "";
 
       for (let i = 0; i < posts.length; i++) {
         // Apply toLowerCase to blogPosts.
         let blogPosts = posts[i].body.toLowerCase();
 
-        // Create an object that has the post id and the count of terms.
+        // Create objects that have the post id and the count of terms.
         if (blogPosts.indexOf(searchTerm) >= 0) {
           let result = {};
           result.post = i;
@@ -73,6 +68,7 @@
       }
 
       // Sort by weight.
+      let resultText = "";
       if (searchByWeight && formData.length != 0) {
         searchResults.sort(function(a, b) {
           return b.weight - a.weight;
@@ -91,13 +87,13 @@
       searchCount == 0 && (resultText = 'perhaps try again?');
       searchCount == 1 && (resultPlural = ' result, ');
 
-      // Show 3 blog posts by default.
+      // Show three blog posts by default.
       if (formData.length == 0) {
-        resultCount[0].innerHTML = 'Showing most recent three out of ' + searchCount + ' blog posts.'
+        resultCount.innerHTML = 'Showing most recent three out of ' + searchCount + ' blog posts.'
         searchCount = 3;
         document.querySelector('main').classList.remove('with-results');
       } else {
-        resultCount[0].innerHTML = searchCount + resultPlural + resultText;
+        resultCount.innerHTML = searchCount + resultPlural + resultText;
         document.querySelector('main').classList.add('with-results');
       };
 
@@ -113,7 +109,7 @@
         postPreview += '</li>';
       }
 
-      resultPreview[0].innerHTML = postPreview;
+      resultPreview.innerHTML = postPreview;
 
     });
   };
