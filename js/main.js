@@ -111,6 +111,10 @@
 
       resultPreview.innerHTML = postPreview;
 
+      // Done, remove the loader screen.
+      document.querySelector('body').classList.add('show-results');
+      removeTarget = document.querySelector('.loading');
+      removeTarget.parentNode.removeChild(removeTarget);
     });
   };
 
@@ -134,6 +138,9 @@
 
     // Page load search.
     searchResults();
+
+    document.querySelector('.loading img').classList.add('fade-in');
+    document.querySelector('.loading p').classList.add('fade-in');
   };
 
 })();
