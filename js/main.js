@@ -73,7 +73,7 @@
       }
 
       // Sort by weight.
-      if (searchByWeight) {
+      if (searchByWeight && formData.length != 0) {
         searchResults.sort(function(a, b) {
           return b.weight - a.weight;
         });
