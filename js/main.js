@@ -138,9 +138,10 @@
 
     // Page load search.
     searchResults();
-
-    document.querySelector('.loading img').classList.add('fade-in');
-    document.querySelector('.loading p').classList.add('fade-in');
+    setTimeout(function() {
+      document.querySelector('.loading img').classList.add('fade-in');
+      document.querySelector('.loading p').classList.add('fade-in');
+    }, 1000);
   };
 
 })();
