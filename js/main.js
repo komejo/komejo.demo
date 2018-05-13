@@ -125,7 +125,7 @@
       .addEventListener("submit", function(e) {
         e.preventDefault();
 
-        let formData = e.target[0].value
+        let formData = e.target[0].value,
           searchByWeight = e.target[1].checked;
 
         // (ES6 only - doesn't work on mobile Safari!).
