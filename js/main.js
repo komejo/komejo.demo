@@ -95,8 +95,10 @@
       if (formData.length == 0) {
         resultCount[0].innerHTML = 'Showing most recent three out of ' + searchCount + ' blog posts.'
         searchCount = 3;
+        document.querySelector('main').classList.remove('with-results');
       } else {
         resultCount[0].innerHTML = searchCount + resultPlural + resultText;
+        document.querySelector('main').classList.add('with-results');
       };
 
       // Get all the previews and post them as links.
@@ -131,7 +133,6 @@
         //   searchByWeight = formData.get('sort-by-weight');
 
         searchResults(formData, searchByWeight);
-        document.querySelector('main').classList.add('with-results');
 
       }, false);
 
