@@ -132,9 +132,8 @@
 
       }, false);
 
-    // Default search.
+    // Page load search.
     searchResults();
   };
-
 
 })();

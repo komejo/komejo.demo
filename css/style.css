@@ -13,6 +13,16 @@ body {
   position: absolute;
   width: 0;
 }
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
 
 header,
 .page-outer,
@@ -134,7 +144,6 @@ main.with-results {
 }
 
 .search-form button {
-  -webkit-appearance: button;
   background-color: #4285f4;
   border-bottom-right-radius: 2px;
   border-top-right-radius: 2px;
