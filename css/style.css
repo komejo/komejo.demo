@@ -110,6 +110,7 @@ main.with-results {
   color: transparent;
   content: "✓";
   display: inline-block;
+  font-family: 'Zapf Dingbats', menlo, arial, sans-serif;
   font-size: 22px;
   height: 12px;
   left: -6px;

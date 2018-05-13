@@ -42,10 +42,10 @@
   // Primary search function.
   function searchResults(formData = '', searchByWeight) {
 
-    // Default search;
+    // Prefer formData.get('search-box')... but iOS does not support.
     let searchTerm = '';
     if (formData.length != 0) {
-      searchTerm = formData.get('search-box').toLowerCase()
+      searchTerm = formData.toLowerCase();
     };
 
     // Apply toLowerCase to the formData argument.
@@ -123,9 +123,12 @@
       .addEventListener("submit", function(e) {
         e.preventDefault();
 
-        // Get the submitted search string.
-        let formData = new FormData(e.target),
-          searchByWeight = formData.get('sort-by-weight');
+        let formData = e.target[0].value
+          searchByWeight = e.target[1].checked;
+
+        // (ES6 only - doesn't work on mobile Safari!).
+        // let formData = new FormData(e.target),
+        //   searchByWeight = formData.get('sort-by-weight');
 
         searchResults(formData, searchByWeight);
         document.querySelector('main').classList.add('with-results');
