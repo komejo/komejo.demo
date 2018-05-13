@@ -141,9 +141,11 @@
 
     // Fade in loaders after 1 second.
     setTimeout(function() {
-      document.querySelector('.loading img').classList.add('fade-in');
-      document.querySelector('.loading p').classList.add('fade-in');
-    }, 1000);
+      if (document.querySelector('.loading') != null) {
+        document.querySelector('.loading img').classList.add('fade-in');
+        document.querySelector('.loading p').classList.add('fade-in');
+      }
+    }, 500);
   };
 
 })();
