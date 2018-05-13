@@ -135,17 +135,19 @@ main.with-results {
 
 .search-form button {
   -webkit-appearance: button;
-  background-color: white;
+  background-color: #4285f4;
+  border-bottom-right-radius: 2px;
+  border-top-right-radius: 2px;
   border: none;
-  color: #4285f4;
+  color: white;
   cursor: pointer;
   fill: currentColor;
   flex: 0 0 auto;
-  height: 24px;
+  height: 46px;
   margin-left: 18px;
-  margin-right: 18px;
-  padding: 0;
-  width: 24px;
+  margin-right: -1px;
+  padding: 9px;
+  width: 44px;
 }
 
 .subtitle {
@@ -211,14 +213,12 @@ main.with-results {
   }
 
   .search-form button {
-    padding: 0;
-    margin-left: 18px;
-    margin-right: 18px;
-    width: 24px;
-    height: 24px;
-    flex: 0 0 auto;
+    background-color: white;
     color: #4285f4;
-    fill: currentColor;
+    height: 24px;
+    margin-right: 18px;
+    padding: 0;
+    width: 24px;
   }
 
   .search-relevance label {
